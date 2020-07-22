@@ -1,4 +1,4 @@
-from chain_of_responsibility.orcamento import Orcamento, Item
+from chain_of_responsibility.orcamentoChain import OrcamentoChain, Item
 
 from chain_of_responsibility.descontos import Desconto_por_valor, Desconto_por_cinco_itens, Sem_desconto_Fim_Cadeia
 
@@ -13,11 +13,11 @@ class CalculadorDescontos(object):
 
 if __name__ == '__main__':
 
-    orcamentoA = Orcamento()
+    orcamentoA = OrcamentoChain()
     orcamentoA.adicionaItem(Item(nome='X', valor=501))
-    orcamentoB = Orcamento()
+    orcamentoB = OrcamentoChain()
     orcamentoB.adicionaItem(Item(nome='X', valor=400))
-    orcamentoC = Orcamento()
+    orcamentoC = OrcamentoChain()
     orcamentoC.adicionaItem(Item('Item A', 100.0))
     orcamentoC.adicionaItem(Item('Item B', 50.0))
     orcamentoC.adicionaItem(Item('Item C', 400.0))

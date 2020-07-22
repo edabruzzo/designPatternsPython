@@ -37,29 +37,35 @@ class ICMS(object):
 
 
 
-class ICPP(object):
+class ICPP(Template_de_imposto_condicional):
 
-    def calcula(self, orcamento):
-        if orcamento.valor > 500:
-            return orcamento.valor * 0.07
-        else:
-            return orcamento.valor * 0.05
+    def deve_usar_maxima_taxacao(self, orcamento):
+        if orcamento.valor > 500 :
+            return True
+
+    def maxima_taxacao(self, orcamento):
+        return orcamento.valor * 0.1
+
+    def minima_taxacao(self, orcamento):
+        return orcamento.valor * 0.06
 
 
-class IKCV(object):
 
-    def calcula(self, orcamento):
+
+class IKCV(Template_de_imposto_condicional):
+
+    def deve_usar_maxima_taxacao(self, orcamento):
         if orcamento.valor > 500 and self.__tem_item_maior_que_100_reais(orcamento):
-            return orcamento.valor * 0.10
-        else:
-            return orcamento.valor * 0.06
+            return True
+
+    def maxima_taxacao(self, orcamento):
+        return orcamento.valor * 0.07
+
+    def minima_taxacao(self, orcamento):
+        return orcamento.valor * 0.05
+
 
     def __tem_item_maior_que_100_reais(self, orcamento):
         for item in orcamento.obter_itens():
-            if item.valor > 100:
-                return True
+            return item.valor > 100
         return False
-
-
-
-

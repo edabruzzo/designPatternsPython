@@ -1,5 +1,5 @@
 
-class Orcamento(object):
+class OrcamentoChain(object):
     def __init__(self):
         self.__itens = []
 
