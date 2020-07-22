@@ -11,12 +11,13 @@ class CalculadorDescontos(object):
         elif orcamento.valor > 500.00:
             desconto = orcamento.valor * 0.07;
 
-        print(desconto)
+        print('Valor do desconto: '+desconto)
 
 
 if __name__ == 'main':
+
     item = Item(nome='X', valor=501)
     orcamento = Orcamento()
     orcamento.adicionaItem(item)
 
-    CalculadorDescontos().calculaDesconto(orcamento)
+    CalculadorDescontos().calculaDesconto(orcamento)    
