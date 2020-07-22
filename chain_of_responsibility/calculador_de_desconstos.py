@@ -1,19 +1,14 @@
 from chain_of_responsibility.orcamento import Orcamento, Item
 
+from chain_of_responsibility.descontos import Desconto_por_valor, Desconto_por_cinco_itens, Sem_desconto_Fim_Cadeia
 
 class CalculadorDescontos(object):
 
     def calculaDesconto(self, orcamento):
 
-        desconto = 0
+        desconto = Desconto_por_cinco_itens(Desconto_por_valor(Sem_desconto_Fim_Cadeia())).calcula(orcamento)
 
-        if orcamento.quantidade_itens() > 5:
-            desconto = orcamento.valor * 0.10
-
-        elif orcamento.valor > 500.00:
-            desconto = orcamento.valor * 0.07
-
-        print('Valor do desconto: ' + str(desconto))
+        print('Desconto = '+str(desconto))
 
 
 if __name__ == '__main__':
