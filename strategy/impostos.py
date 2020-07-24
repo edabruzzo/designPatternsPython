@@ -2,7 +2,18 @@
 from abc import ABCMeta, abstractmethod
 
 
-class Template_de_imposto_condicional(object):
+class Imposto(object):
+    __metaclass__ = ABCMeta
+
+    def __init__(self, outro_imposto = None):
+        self.__outro_imposto = outro_imposto
+
+    @abstractmethod
+    def calcular(self, orcamento):
+        pass
+
+# Ué, uma classe abstrata que herda de outra classe abstrata ?
+class Template_de_imposto_condicional(Imposto):
 
     __metaclass__ = ABCMeta
 
@@ -22,14 +33,15 @@ class Template_de_imposto_condicional(object):
     def minima_taxacao(self, orcamento): pass
 
 
-class ISS(object):
+
+class ISS(Imposto):
 
     #https://stackoverflow.com/questions/23944657/typeerror-method-takes-1-positional-argument-but-2-were-given
     def calcular(self, orcamento):
         return orcamento.valor * 0.1
 
 
-class ICMS(object):
+class ICMS(Imposto):
 
     #https://stackoverflow.com/questions/23944657/typeerror-method-takes-1-positional-argument-but-2-were-given
     def calcular(self, orcamento):
