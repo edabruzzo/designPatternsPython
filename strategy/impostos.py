@@ -2,15 +2,21 @@
 from abc import ABCMeta, abstractmethod
 
 
+#https://realpython.com/python-super/https://realpython.com/python-super/
 class Imposto(object):
-    __metaclass__ = ABCMeta
+
 
     def __init__(self, outro_imposto = None):
         self.__outro_imposto = outro_imposto
 
-    @abstractmethod
-    def calcular(self, orcamento):
-        pass
+
+    def calcular(self, orcamento, aliquota=0):
+
+        if (self.__outro_imposto is None):
+            return orcamento.valor * aliquota
+        else:
+            return orcamento.valor * aliquota + self.__outro_imposto.calcular(orcamento)
+
 
 # Ué, uma classe abstrata que herda de outra classe abstrata ?
 class Template_de_imposto_condicional(Imposto):
@@ -38,14 +44,14 @@ class ISS(Imposto):
 
     #https://stackoverflow.com/questions/23944657/typeerror-method-takes-1-positional-argument-but-2-were-given
     def calcular(self, orcamento):
-        return orcamento.valor * 0.1
+        return super(ISS, self).calcular(orcamento, 0.1)
 
 
 class ICMS(Imposto):
 
     #https://stackoverflow.com/questions/23944657/typeerror-method-takes-1-positional-argument-but-2-were-given
     def calcular(self, orcamento):
-        return orcamento.valor * 0.06
+        return super(ICMS, self).calcular(orcamento, 0.06)
 
 
 
@@ -56,10 +62,10 @@ class ICPP(Template_de_imposto_condicional):
             return True
 
     def maxima_taxacao(self, orcamento):
-        return orcamento.valor * 0.1
+        return Imposto().calcular(orcamento, 0.13)
 
     def minima_taxacao(self, orcamento):
-        return orcamento.valor * 0.06
+        return Imposto().calcular(orcamento,0.09)
 
 
 
@@ -71,10 +77,10 @@ class IKCV(Template_de_imposto_condicional):
             return True
 
     def maxima_taxacao(self, orcamento):
-        return orcamento.valor * 0.07
+        return Imposto().calcular(orcamento, 0.07)
 
     def minima_taxacao(self, orcamento):
-        return orcamento.valor * 0.05
+        return Imposto().calcular(orcamento, 0.05)
 
 
     def __tem_item_maior_que_100_reais(self, orcamento):
