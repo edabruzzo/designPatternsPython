@@ -3,10 +3,20 @@ from state.estado_contrato import Em_Aprovacao
 
 class Contrato(object):
 
+
    def __init__(self, valor, Estado):
        self.__valor = valor
        self.__estado_atual = Estado
+       self.__descontoAplicado = False
 
+
+   @property
+   def descontoAplicado(self):
+       return self.__descontoAplicado
+
+   @descontoAplicado.setter
+   def descontoAplicado(self, descontoAplicado):
+       self.__descontoAplicado = descontoAplicado
 
    @property
    def valor(self):

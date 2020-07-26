@@ -35,6 +35,7 @@ class Em_Aprovacao(Estado_Contrato):
     def aplicar_desconto(self, contrato):
         novo_valor = contrato.valor - contrato.valor * 0.07
         contrato.valor = novo_valor
+        contrato.descontoAplicado = True
 
 
 class Aprovado(Estado_Contrato):
@@ -51,7 +52,7 @@ class Aprovado(Estado_Contrato):
     def aplicar_desconto(self, contrato):
         novo_valor = contrato.valor - contrato.valor * 0.05
         contrato.valor = novo_valor
-
+        contrato.descontoAplicado = True
 
 class Reprovado(Estado_Contrato):
 
