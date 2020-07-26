@@ -24,16 +24,17 @@ class Estado_Contrato(object):
 class Em_Aprovacao(Estado_Contrato):
 
     def aprovar(self, contrato):
-        contrato.estadoAtual(Aprovado())
+        contrato.estadoAtual = Aprovado()
 
     def reprovar(self, contrato):
-        contrato.estadoAtual(Reprovado())
+        contrato.estadoAtual = Reprovado()
 
     def finalizar(self, contrato):
-        contrato.estadoAtual(Finalizado())
+        contrato.estadoAtual = Finalizado()
 
     def aplicar_desconto(self, contrato):
-        contrato.valor(contrato.valor - contrato.valor * 0.07)
+        novo_valor = contrato.valor - contrato.valor * 0.07
+        contrato.valor = novo_valor
 
 
 class Aprovado(Estado_Contrato):
@@ -45,10 +46,11 @@ class Aprovado(Estado_Contrato):
         raise RuntimeError('O contrato já está aprovado')
 
     def finalizar(self, contrato):
-        contrato.estadoAtual(Finalizado())
+        contrato.estadoAtual = Finalizado()
 
     def aplicar_desconto(self, contrato):
-        contrato.valor(contrato.valor - contrato.valor * 0.05)
+        novo_valor = contrato.valor - contrato.valor * 0.05
+        contrato.valor = novo_valor
 
 
 class Reprovado(Estado_Contrato):
@@ -60,10 +62,10 @@ class Reprovado(Estado_Contrato):
         raise RuntimeError('O contrato já está reprovado')
 
     def finalizar(self, contrato):
-        contrato.estadoAtual(Finalizado())
+        contrato.estadoAtual = Finalizado()
 
     def aplicar_desconto(self, contrato):
-        pass
+        print('Nenhum desconto será aplicado, pois o contrato está reprovado')
 
 
 class Finalizado(Estado_Contrato):
