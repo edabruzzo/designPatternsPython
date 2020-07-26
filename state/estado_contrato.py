@@ -1,10 +1,8 @@
 from abc import ABCMeta, abstractmethod
+
 class Estado_Contrato(object):
 
     __metaclass__ = ABCMeta
-
-    def __init__(self):
-        pass
 
     @abstractmethod
     def aprovar(self, contrato):
@@ -28,14 +26,14 @@ class Em_Aprovacao(Estado_Contrato):
     def aprovar(self, contrato):
         contrato.estadoAtual(Aprovado())
 
-    def reprovar(self):
-        pass
+    def reprovar(self, contrato):
+        contrato.estadoAtual(Reprovado())
 
-    def finalizar(self):
-        pass
+    def finalizar(self, contrato):
+        contrato.estadoAtual(Finalizado())
 
-    def aplicar_desconto(self):
-        pass
+    def aplicar_desconto(self, contrato):
+        contrato.valor(contrato.valor - contrato.valor * 0.07)
 
 
 class Aprovado(Estado_Contrato):
@@ -50,7 +48,7 @@ class Aprovado(Estado_Contrato):
         contrato.estadoAtual(Finalizado())
 
     def aplicar_desconto(self, contrato):
-        pass
+        contrato.valor(contrato.valor - contrato.valor * 0.05)
 
 
 class Reprovado(Estado_Contrato):
