@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     controlador.aplicar_desconto(contrato)
     print('Valor do contrato após aplicação de desconto: '+str(contrato.valor))
-    controlador.aprovar(contrato)
+    #controlador.aprovar(contrato)
     #controlador.reprovar(contrato)
     controlador.finalizar(contrato)
 
