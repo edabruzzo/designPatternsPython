@@ -28,6 +28,11 @@ class Criador_de_nota_fiscal(object):
         self.__itens = itens
         return self
 
+    def com_observadores(self, lista_observadores):
+        self.__lista_observadores = lista_observadores
+        return self
+
+
     def constroi(self):
         if self.__razao_social is None:
             raise Exception('Razão social deve ser preenchida')
@@ -41,7 +46,8 @@ class Criador_de_nota_fiscal(object):
             cnpj=self.__cnpj,
             itens=self.__itens,
             data_de_emissao=self.__data_de_emissao,
-            detalhes = self.__detalhes
+            detalhes = self.__detalhes,
+            observadores=self.__lista_observadores
         )
 
 
@@ -61,10 +67,10 @@ if __name__ == '__main__':
 
     # usando nosso Builder.
     nota_fiscal = (Criador_de_nota_fiscal()
-        .com_razao_social('FHSA Limitada')
-        .com_cnpj('012345678901234')
-        .com_itens(itens)
-        .constroi())
+                    .com_razao_social('FHSA Limitada')
+                    .com_cnpj('012345678901234')
+                    .com_itens(itens)
+                    .constroi())
 
     print(nota_fiscal.razao_social)
     print(nota_fiscal.cnpj)

@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 # nota_fiscal.py
 from datetime import date
+from observer.observadores import *
 
 class ItemNota(object):
 
@@ -19,7 +20,12 @@ class ItemNota(object):
 class Nota_fiscal(object):
 
     # os parâmetros opcionais devem ser os últimos
-    def __init__(self, razao_social, cnpj, itens, data_de_emissao=date.today(), detalhes='TESTE'):
+    def __init__(self,
+                 razao_social,
+                 cnpj, itens,
+                 data_de_emissao=date.today(),
+                 detalhes='TESTE',
+                 observadores = [] ):
 
         self.__razao_social = razao_social
         self.__cnpj = cnpj
@@ -31,26 +37,33 @@ class Nota_fiscal(object):
 
         self.__detalhes = detalhes
 
-        @property
-        def razao_social(self):
-            return self.__razao_social
+        for observador in observadores:
+            observador(self)
 
-        @property
-        def cnpj(self):
-            return self.__cnpj
 
-        @property
-        def data_de_emissao(self):
-            return self.__data_de_emissao
+    @property
+    def razao_social(self):
+        return self.__razao_social
 
-        @property
-        def detalhes(self):
-            return self.__detalhes
+    @property
+    def cnpj(self):
+        return self.__cnpj
+
+    @property
+    def data_de_emissao(self):
+        return self.__data_de_emissao
+
+    @property
+    def detalhes(self):
+        return self.__detalhes
 
 
 
 # nota_fiscal.py
 # código das classes omitidos
+
+#dependência circular
+#from object_creation_builder.criador_nota_fiscal import Criador_de_nota_fiscal
 
 if __name__ == '__main__':
 
@@ -69,10 +82,7 @@ if __name__ == '__main__':
         cnpj='012345678901234',
         razao_social='FHSA Limitada',
         itens=itens,
+        observadores=[envia_por_email, salva_no_banco, imprime]
         #detalhes='Referente à ...',
         #data_de_emissao=date.today()
     )
-
-
-
-
